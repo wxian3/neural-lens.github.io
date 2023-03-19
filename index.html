@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>NeuralLens</title>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111714927-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-111714927-1');
+        </script>
+    </head>
+    <body class="container" style="max-width:1000px">
+
+        <!-- Title -->
+        <div>
+            <div class='row mt-5 mb-3'>
+                <div class='col text-center'>
+                    <p class="h2 font-weight-normal">Neural Lens Modeling</p>
+                </div>
+            </div>
+
+            <!-- authors -->
+            <div class='row text-center h5 font-weight-bold pl-4 pr-4 mb-4'>
+                <a class="col-md-3" href="https://www.cs.cornell.edu/~wenqixian/"><span>Wenqi Xian</span></a>
+                <a class="col-md-3" href=""><span>Aljaz Bozic</span></a>
+                <a class="col-md-3" href=""><span>Noah Snavely</span></a>
+                <a class="col-md-3" href=""><span>Christoph Lassner</span></a>
+            </div>
+
+
+            <!-- affiliations -->
+            <div class='row mt-1 mt-2' >
+                <div class='col text-center'>
+                    <p class="h5 font-weight-light">
+                    <a class="ml-4" href="https://tech.cornell.edu"><span>Cornell Tech</span></a>
+                    <a class="mr-4 ml-4" href="https://tech.cornell.edu/"><span>Meta Reality Labs</span></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class='row justify-content-center'  style="position: relative; width: 100%;height: 0;padding-bottom: 25%; margin:0">
+                <img
+                    class="img-fluid rounded mx-auto d-block"
+                    src="assets/teaser.png" alt="StayPositive Method Intro"
+                    style="position:absolute; width:50%; height:100%; top:0px; left:250px;"
+                >
+			</div>
+
+        </div>
+
+        <!-- Paper section -->
+        <div>
+            <hr>
+            <div class='row'>
+                <div class='col-md-3 col-sm-3 col-xs-12 text-center col-sm-3'>
+                    <div class="row mt-4">
+                        <a href="" style="max-width:200px; margin-left:auto; margin-right:auto">
+                            <img src="assets/paper.png" alt="paper-snapshot" class="img-thumbnail" width="80%" style="box-shadow: 10px 10px 5px grey;">
+                        </a>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <a class="h5" href="https://github.com" style="margin-right:10px">
+                                <span>[Code]</span>
+                            </a>
+                            <a class="h5" href="cite.bib" target="_blank">
+                                <span>[Bibtex]</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-9 col-sm-9 col-xs-12'>
+                    <p class='h4 font-weight-bold '>Abstract</p>
+                    <p class="text-break">
+                        Recent methods for 3D reconstruction and rendering in
+                        creasingly benefit from end-to-end optimization of the entire
+                        image formation process. However, this approach is
+                        currently limited: effects of the optical hardware stack and in
+                        particular lenses are not being modeled in a differentiable
+                        way. This limits the quality that can be achieved for camera
+                        calibration as well as the fidelity of results of 3D reconstruction.
+                        In this paper, we propose a neural lens model
+                        for distortion and vignetting that can be used for point
+                        projection and raycasting and can be optimized through both
+                        operations. This means that it can (optionally) be used to
+                        perform pre-capture calibration using classical calibration
+                        targets, and can later be used to perform calibration or
+                        refinement during 3D reconstruction; for instance, while
+                        optimizing a radiance field. To evaluate the performance of
+                        the proposed model, we propose a comprehensive dataset
+                        assembled from the Lensfun database with a multitude of
+                        lenses. Using this and other real-world datasets, we show
+                        that the quality of our proposed lens model outperforms
+                        standard packages as well as recent approaches while being
+                         much easier to use and extend. The model generalizes
+                        across many lens types and is trivial to integrate into existing
+                        3D reconstruction and rendering systems.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture, explaination -->
+        <div>
+            <hr>
+            <!-- <div class='row text-center'>
+                <div class='col'>
+                    <p class='h2'>The StayPositive Method</p>
+                </div>
+            </div> -->
+
+            <!-- <div class='row mt-3'>
+                <div class='col'>
+                    <img src="assets/checkershadow_illusion.jpg" style="position: absolute;width: 100%;left: 0; top: 0;">
+                </div>
+                <div class='col'>
+                    <img src="assets/koffka_ring.png" style="position: absolute;width: 100%; left: 0; top: 0;">
+                </div>
+                <div class='col-7 mx-3'>
+                    <p class="text-break">
+                        In applications such as optical see-through and projector augmented reality, producing images amounts to solving non-negative image generation, where one can only add light to an existing image.
+
+                        <ol>
+                            <li>Most image generation methods, are <b>ill-suited to this problem setting</b>, since they assume full control of colors for each pixel</li>
+                            <li>Naively, we cannot <b>create darker pixels</b> by adding more light</li>
+                        </ol>
+                    </p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    <b>Our key insight:</b> Leverage <i>optical illusions</i> to produce high quality images with negligible artifacts, <i>e.g.</i> we can create the illusion of darker patches by brightening surrounding pixels.<br><br>
+                </div>
+            </div> -->
+
+            <!-- <div class='row'>
+                <div class='col'>
+                    <img src="assets/model.gif" style="position: absolute;width: 100%; left: 0; top: 0;">
+                </div>
+            </div> -->
+            <div class='row justify-content-center'  style="position: relative; width: 100%;padding-bottom: 30%; margin:0">
+                <img
+                    class="img-fluid rounded mx-auto d-block"
+                    src="assets/method_overview.png" alt="StayPositive Framework"
+                    style="position:absolute; width:100%; top:20px; bottom:30px; left:0px;"
+                >
+			</div>
+            <div class='row'>
+                <div class='col'>
+                    <b>Our key insight</b> is to use an invertible neural network (INN) to model ray
+                    distortion, combined with standard camera intrinsics and
+                    extrinsics. This means that we model the camera lens as a
+                    mapping of two vector fields using a diffeomorphism (i.e.,
+                    a bijective mapping where both the mapping and its inverse
+                    are differentiable), represented by an INN.
+                </div>
+            </div>
+
+            <div class='row'>
+
+                <div class='col'>
+                    <!-- We also proposed: -->
+
+                    <br><br>
+
+                    <!-- <ol>
+                        <li>Naively, we cannot <b>create darker pixels</b> by adding more light</li>
+                        <li>Most image generation methods, are <b>ill-suited to this problem setting</b>, since they assume full control of colors for each pixel</li>
+                    </ol> -->
+                </div>
+            </div>
+
+            <div class='row mt-3'>
+                <div class='col-2 mx-2'>
+                    <img src="assets/box.gif" style="position: absolute;width: 100%; left: 0; top: 0;padding-bottom: 22%;">
+                </div>
+                <div class='col-3 mx-2'>
+                    <img src="assets/pattern.png" style="position: absolute;width: 100%; left: 0; top: 0;padding-bottom: 22%;">
+                </div>
+                <div class='col-6 mx-2'>
+                    <p class="text-break" style="padding-bottom: 5%;padding-top: 5%;">
+                        We also proposed:
+                        <b>A new marker</b> that can be jointly optimzed with a keypoint detector to increase the robustness of pattern-based calibration;
+                        <b>A large scale camera lens benchmark</b> for evaluating the performance of marker detection and camera calibration.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class='row mt-3'>
+            </div>
+
+        </div>
+
+        <!-- Results, transformation -->
+        <div>
+            <hr>
+            <div class='row text-center'>
+                <div class='col'>
+                    <p class='h2'>Result Visualizations</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    Our model can also be optimized using point correspondences for keypoint pairs obtained using calibration targets, as well as gradients from a set of 2D image observations.
+                </div>
+            </div>
+
+            <div class='row mt-7'>
+                <div class='col'>
+                    <img src="assets/opt_timelapse_img.gif" class="img-fluid rounded mx-auto d-block" alt="flow-airplane-4">
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    We integrate our
+                    neural lens model into a neural rendering framework
+                    such that the camera poses, pinhole intrinsics and lens dis-
+                    tortion are optimized together with the appearance model,
+                    given only RGB observations.
+                </div>
+            </div>
+
+            <div class='row mt-7'>
+                <div class='col' >
+                    <img src="assets/fig_nerfv3.png" style="width: 80%" class="img-fluid rounded mx-auto d-block" alt="flow-airplane-4">
+                </div>
+            </div>
+        </div>
+
+        <!-- Ack -->
+        <div>
+            <hr>
+
+            <div class='row mb-5 text-center'>
+                <div class='col'>
+                    <p class='h2'>Acknowledgements</p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
